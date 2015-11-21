@@ -12,16 +12,21 @@ function Turtle(canvasSelector, initx, inity, length){
   this.ctx = document.querySelector(canvasSelector).getContext("2d");
 
   // Correct size for canvas
-  var width = canvas.width = window.innerWidth,
-      height = canvas.height = window.innerHeight;
+  this.width = canvas.width = window.innerWidth;
+  this.height = canvas.height = window.innerHeight;
 
-  // Set the canvas background to black
-  this.ctx.fillStyle = '#000';
-  this.ctx.fillRect(0, 0, width, height);
-
-  // Set stroke style to white
+  // Set stroke style to white and the fill style to black
   this.ctx.strokeStyle = '#fff';
+  this.ctx.fillStyle = '#000';
+
+  this.clean();
   this.begin();
+}
+
+// Clean the current turtle drawing
+Turtle.prototype.clean = function(){
+  // Paint it black!
+  this.ctx.fillRect(0, 0, this.width, this.height);
 }
 
 // This is almost an internal method, has to be used when changing
