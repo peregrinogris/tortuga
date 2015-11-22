@@ -6,7 +6,7 @@
  *  length:         Int, default length used by forward (optional, default 100)
  */
 function Turtle(canvasSelector, initx, inity, length){
-  this.direction = 0;
+  this.direction = Math.PI/2; // This one goes in radians
   this.position = [initx, inity];
   this.length = length || 100;
   this.ctx = document.querySelector(canvasSelector).getContext("2d");
@@ -18,6 +18,10 @@ function Turtle(canvasSelector, initx, inity, length){
   // Set stroke style to white and the fill style to black
   this.ctx.strokeStyle = '#fff';
   this.ctx.fillStyle = '#000';
+
+  // Y axis on screen is rotated, so fix it
+  this.ctx.translate(0, this.height);
+  this.ctx.scale(1, -1);
 
   this.clean();
   this.begin();
@@ -56,17 +60,18 @@ Turtle.prototype.forward = function(length) {
   this.ctx.lineTo(this.position[0], this.position[1]);
 }
 
-// Rotate the turtle by the desired angle in deg, clockwise
+// Rotate the turtle by the desired angle in deg, clockwise. Internally
+// the turtle uses radians
 Turtle.prototype.rotate = function(deg) {
-  this.direction += Math.PI * deg / 180 % Math.PI;
+  this.direction = (this.direction + Math.PI * deg / 180) % (2 * Math.PI);
 }
 
 // Just a handy rename for rotate
 Turtle.prototype.right = function(deg) {
-  this.rotate(deg);
+  this.rotate(-1 * deg);
 }
 
 // Rotate the turtle by the desired angle in deg, anti-clockwise
 Turtle.prototype.left = function(deg) {
-  this.rotate(-1 * deg);
+  this.rotate(deg);
 }
