@@ -9,6 +9,7 @@ function Turtle(canvasSelector, initx, inity, length){
   this.direction = Math.PI/2; // This one goes in radians
   this.position = [initx, inity];
   this.length = length || 100;
+  this.isPenDown = true;
   this.ctx = document.querySelector(canvasSelector).getContext("2d");
 
   // Correct size for canvas
@@ -52,12 +53,30 @@ Turtle.prototype.color = function(color){
   this.begin();
 }
 
+// Lift the pen, draws the current path
+Turtle.prototype.penUp = function(){
+  this.drawPath();
+  this.isPenDown = false;
+}
+
+// Get the pen down
+Turtle.prototype.penDown = function(){
+  this.isPenDown = true;
+}
+
 // Move forward the specified length, or use the default one
 Turtle.prototype.forward = function(length) {
   length = length || this.length;
   this.position[0] += Math.cos(this.direction) * length;
   this.position[1] += Math.sin(this.direction) * length;
-  this.ctx.lineTo(this.position[0], this.position[1]);
+
+  // If the pen is down, write. Otherwise just move.
+  if (this.isPenDown) {
+    this.ctx.lineTo(this.position[0], this.position[1]);
+  } else {
+    this.ctx.moveTo(this.position[0], this.position[1]);
+  }
+}
 }
 
 // Rotate the turtle by the desired angle in deg, clockwise. Internally
