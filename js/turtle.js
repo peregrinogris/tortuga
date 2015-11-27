@@ -77,6 +77,15 @@ Turtle.prototype.forward = function(length) {
     this.ctx.moveTo(this.position[0], this.position[1]);
   }
 }
+
+// A handy rename to move backwards
+Turtle.prototype.back = function(length) {
+  // Change the direction momentarily
+  this.direction *= -1;
+  // Use forward to avoid repeating code
+  this.forward(length);
+  // Restore the direction as it was before
+  this.direction *= -1;
 }
 
 // Rotate the turtle by the desired angle in deg, clockwise. Internally
