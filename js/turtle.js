@@ -34,23 +34,22 @@ Turtle.prototype.clean = function(){
   this.ctx.fillRect(0, 0, this.width, this.height);
 }
 
-// This is almost an internal method, has to be used when changing
-// the pen color
+// Usually shouldn't be used outside Turtle, begins a new path
 Turtle.prototype.begin = function(){
   this.ctx.beginPath();
   this.ctx.moveTo(this.position[0], this.position[1]);
 }
 
-// Draw the turtle path. Call before changing color, or the previous paths
-// will have the new color
+// Draw the current turtle path, and begin a new one
 Turtle.prototype.drawPath = function(){
   this.ctx.stroke();
+  this.begin();
 }
 
-// Change the pen color
+// Change the pen color, draws the current path
 Turtle.prototype.color = function(color){
   this.ctx.strokeStyle = color;
-  this.begin();
+  this.drawPath();
 }
 
 // Lift the pen, draws the current path
