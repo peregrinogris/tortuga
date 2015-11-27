@@ -6,9 +6,9 @@
  *  length:         Int, default length used by forward (optional, default 100)
  */
 function Turtle(canvasSelector, initx, inity, length){
-  this.direction = Math.PI/2; // This one goes in radians
+  this.direction = 90; // Direction is in degrees
   this.position = [initx, inity];
-  this.length = length || 100;
+  this.length = length === undefined ? 100 : length;
   this.isPenDown = true;
   this.ctx = document.querySelector(canvasSelector).getContext("2d");
 
@@ -65,9 +65,10 @@ Turtle.prototype.penDown = function(){
 
 // Move forward the specified length, or use the default one
 Turtle.prototype.forward = function(length) {
-  length = length || this.length;
-  this.position[0] += Math.cos(this.direction) * length;
-  this.position[1] += Math.sin(this.direction) * length;
+  var length = length === undefined ? this.length : length,
+      angle = Math.PI * this.direction / 180; // Convert direction to radians
+  this.position[0] += Math.cos(angle) * length;
+  this.position[1] += Math.sin(angle) * length;
 
   // If the pen is down, write. Otherwise just move.
   if (this.isPenDown) {
@@ -87,18 +88,17 @@ Turtle.prototype.back = function(length) {
   this.direction *= -1;
 }
 
-// Rotate the turtle by the desired angle in deg, clockwise. Internally
-// the turtle uses radians
+// Rotate the turtle by the desired angle in deg, clockwise.
 Turtle.prototype.rotate = function(deg) {
-  this.direction = (this.direction + Math.PI * deg / 180) % (2 * Math.PI);
+  this.direction = (this.direction - deg) % 360;
 }
 
 // Just a handy rename for rotate
 Turtle.prototype.right = function(deg) {
-  this.rotate(-1 * deg);
+  this.rotate(deg);
 }
 
 // Rotate the turtle by the desired angle in deg, anti-clockwise
 Turtle.prototype.left = function(deg) {
-  this.rotate(deg);
+  this.rotate(-1 * deg);
 }
