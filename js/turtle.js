@@ -64,8 +64,8 @@ Turtle.prototype.penDown = function(){
 }
 
 // Move forward the specified length, or use the default one
-Turtle.prototype.forward = function(length) {
-  var length = length === undefined ? this.length : length,
+Turtle.prototype.forward = function(iniLength) {
+  let length = iniLength === undefined ? this.length : iniLength,
       angle = Math.PI * this.direction / 180; // Convert direction to radians
   this.position[0] += Math.cos(angle) * length;
   this.position[1] += Math.sin(angle) * length;
@@ -81,11 +81,11 @@ Turtle.prototype.forward = function(length) {
 // A handy rename to move backwards
 Turtle.prototype.back = function(length) {
   // Change the direction momentarily
-  this.direction *= -1;
+  this.direction -= 180;
   // Use forward to avoid repeating code
   this.forward(length);
   // Restore the direction as it was before
-  this.direction *= -1;
+  this.direction += 180;
 }
 
 // Rotate the turtle by the desired angle in deg, clockwise.
