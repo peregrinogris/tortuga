@@ -11,7 +11,7 @@ function poly(angle, length) {
 
 function spiral(angle, initialLength){
   for (var i=0; i<=30; i++){
-    turtle.color('rgb(0, '+ (15 + 8 * i) +', '+ (255 - 8 * i) +')');
+    turtle.color(0, 15 + 8 * i, 255 - 8 * i);
     initialLength = poly(angle, initialLength);
     turtle.drawPath();
   }

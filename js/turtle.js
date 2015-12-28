@@ -46,10 +46,25 @@ Turtle.prototype.drawPath = function(){
   this.begin();
 }
 
-// Change the pen color, draws the current path
-Turtle.prototype.color = function(color){
-  this.ctx.strokeStyle = color;
+// Change the pen color, draws the current path.
+// Accepts either a color string or rgb values.
+Turtle.prototype.color = function(r, g, b){
+  if (arguments.length == 1) {
+    // use this string as strokeStyle
+    this.ctx.strokeStyle = r;
+  } else if (arguments.length == 3) {
+    // rgb was passed as arguments
+    this.ctx.strokeStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+  } else {
+    // Set color to red, an argument is missing
+    this.ctx.strokeStyle = 'rgb(255, 0, 0)';
+  }
   this.drawPath();
+}
+
+// Step the pen color through the rainbow
+Turtle.prototype.rainbow = function(step, totalSteps){
+  this.color('hsl(' + Math.ceil(step / totalSteps * 360) + ', 100%, 50%)');
 }
 
 // Lift the pen, draws the current path

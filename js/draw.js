@@ -11,7 +11,7 @@ function dashedPoly(angle){
   var totalTurning = 0;
   do {
     for (var i=0; i<=30; i++){
-      turtle.color('rgb(0, '+ (15 + 8 * i) +', '+ (255 - 8 * i) +')');
+      turtle.rainbow(i, 30);
       turtle.forward(10);
       turtle.penUp();
       turtle.right(90);
@@ -26,7 +26,7 @@ function dashedPoly(angle){
 
 // Create a figure using poly
 for (var i=0; i<=30; i++){
-  turtle.color('rgb(0, '+ (15 + 8 * i) +', '+ (255 - 8 * i) +')');
+  turtle.color(0, 15 + 8 * i, 255 - 8 * i);
   poly(27, 50);
   turtle.right(100);
 }
