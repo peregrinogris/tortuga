@@ -1,7 +1,7 @@
 var turtle = new Turtle('#canvas', 400, 300);
 
 function poly(angle, length) {
-  for (let i=0; i<360/angle; i++){
+  for (var i=0; i<360/angle; i++){
     turtle.forward(length);
     turtle.right(angle);
     length += 2;
@@ -10,7 +10,7 @@ function poly(angle, length) {
 }
 
 function spiral(angle, initialLength){
-  for (let i=0; i<=30; i++){
+  for (var i=0; i<=30; i++){
     turtle.color('rgb(0, '+ (15 + 8 * i) +', '+ (255 - 8 * i) +')');
     initialLength = poly(angle, initialLength);
     turtle.drawPath();

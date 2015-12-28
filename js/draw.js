@@ -1,16 +1,16 @@
 var turtle = new Turtle('#canvas', 400, 300);
 
 function poly(angle, size) {
-  for (let i=0; i<360; i += angle){
+  for (var i=0; i<360; i += angle){
     turtle.forward(size);
     turtle.right(angle);
   }
 }
 
 function dashedPoly(angle){
-  let totalTurning = 0;
+  var totalTurning = 0;
   do {
-    for (let i=0; i<=30; i++){
+    for (var i=0; i<=30; i++){
       turtle.color('rgb(0, '+ (15 + 8 * i) +', '+ (255 - 8 * i) +')');
       turtle.forward(10);
       turtle.penUp();
@@ -25,7 +25,7 @@ function dashedPoly(angle){
 }
 
 // Create a figure using poly
-for (let i=0; i<=30; i++){
+for (var i=0; i<=30; i++){
   turtle.color('rgb(0, '+ (15 + 8 * i) +', '+ (255 - 8 * i) +')');
   poly(27, 50);
   turtle.right(100);

@@ -65,7 +65,7 @@ Turtle.prototype.penDown = function(){
 
 // Move forward the specified length, or use the default one
 Turtle.prototype.forward = function(iniLength) {
-  let length = iniLength === undefined ? this.length : iniLength,
+  var length = iniLength === undefined ? this.length : iniLength,
       angle = Math.PI * this.direction / 180; // Convert direction to radians
   this.position[0] += Math.cos(angle) * length;
   this.position[1] += Math.sin(angle) * length;
