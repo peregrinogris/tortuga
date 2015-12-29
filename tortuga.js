@@ -1,54 +1,65 @@
 /*
- * Create a Turtle.
+ * Create a Tortuga.
  *  canvasSelector: String, canvas element selector
- *  initx:          Int, initial X coordinate
- *  inity:          Int, initial Y coordinate
+ *  initx:          Int, initial X coordinate (optional, default 0)
+ *  inity:          Int, initial Y coordinate (optional, default 0)
  *  length:         Int, default length used by forward (optional, default 100)
  */
-function Turtle(canvasSelector, initx, inity, length){
-  this.direction = 90; // Direction is in degrees
-  this.position = [initx, inity];
-  this.length = length === undefined ? 100 : length;
-  this.isPenDown = true;
-  this.ctx = document.querySelector(canvasSelector).getContext("2d");
+function Tortuga(canvasSelector, initx, inity, length){
+  // Check if the selector matches
+  this.canvasSelector = canvasSelector || '#tortuga-canvas';
+  try {
+    this.ctx = document.querySelector(this.canvasSelector).getContext("2d");
+  } catch(e) {
+    throw Error('The canvasSelector `' + this.canvasSelector + '` matched no element');
+  }
 
-  // Correct size for canvas
-  this.width = canvas.width = window.innerWidth;
-  this.height = canvas.height = window.innerHeight;
+  // Parse optional parameters
+  this.position = [initx || 0, inity || 0];
+  this.length = length || 100;
+
+  // Set internal variables
+  this.direction = 90; // Direction is in degrees
+  this.isPenDown = true;
 
   // Set stroke style to white and the fill style to black
   this.ctx.strokeStyle = '#fff';
   this.ctx.fillStyle = '#000';
 
   // Y axis on screen is rotated, so fix it
-  this.ctx.translate(0, this.height);
-  this.ctx.scale(1, -1);
+  this.fixAxis();
 
   this.clean();
   this.begin();
 }
 
-// Clean the current turtle drawing
-Turtle.prototype.clean = function(){
-  // Paint it black!
-  this.ctx.fillRect(0, 0, this.width, this.height);
+// Helper to invert the screen axis so the origin is at the bottom left
+Tortuga.prototype.fixAxis = function(){
+  this.ctx.translate(0, this.ctx.canvas.height);
+  this.ctx.scale(1, -1);
 }
 
-// Usually shouldn't be used outside Turtle, begins a new path
-Turtle.prototype.begin = function(){
+// Clean the current turtle drawing
+Tortuga.prototype.clean = function(){
+  // Paint it black!
+  this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+}
+
+// Usually shouldn't be used outside Tortuga, begins a new path
+Tortuga.prototype.begin = function(){
   this.ctx.beginPath();
   this.ctx.moveTo(this.position[0], this.position[1]);
 }
 
 // Draw the current turtle path, and begin a new one
-Turtle.prototype.drawPath = function(){
+Tortuga.prototype.drawPath = function(){
   this.ctx.stroke();
   this.begin();
 }
 
 // Change the pen color, draws the current path.
 // Accepts either a color string or rgb values.
-Turtle.prototype.color = function(r, g, b){
+Tortuga.prototype.color = function(r, g, b){
   if (arguments.length == 1) {
     // use this string as strokeStyle
     this.ctx.strokeStyle = r;
@@ -63,24 +74,24 @@ Turtle.prototype.color = function(r, g, b){
 }
 
 // Step the pen color through the rainbow
-Turtle.prototype.rainbow = function(step, totalSteps){
+Tortuga.prototype.rainbow = function(step, totalSteps){
   this.color('hsl(' + Math.ceil(step / totalSteps * 360) + ', 100%, 50%)');
 }
 
 // Lift the pen, draws the current path
-Turtle.prototype.penUp = function(){
+Tortuga.prototype.penUp = function(){
   this.drawPath();
   this.isPenDown = false;
 }
 
 // Get the pen down
-Turtle.prototype.penDown = function(){
+Tortuga.prototype.penDown = function(){
   this.isPenDown = true;
 }
 
 // Move forward the specified length, or use the default one
-Turtle.prototype.forward = function(iniLength) {
-  var length = iniLength === undefined ? this.length : iniLength,
+Tortuga.prototype.forward = function(_length) {
+  var length = _length === undefined ? this.length : _length,
       angle = Math.PI * this.direction / 180; // Convert direction to radians
   this.position[0] += Math.cos(angle) * length;
   this.position[1] += Math.sin(angle) * length;
@@ -94,7 +105,7 @@ Turtle.prototype.forward = function(iniLength) {
 }
 
 // A handy rename to move backwards
-Turtle.prototype.back = function(length) {
+Tortuga.prototype.back = function(length) {
   // Change the direction momentarily
   this.direction -= 180;
   // Use forward to avoid repeating code
@@ -104,16 +115,16 @@ Turtle.prototype.back = function(length) {
 }
 
 // Rotate the turtle by the desired angle in deg, clockwise.
-Turtle.prototype.rotate = function(deg) {
+Tortuga.prototype.rotate = function(deg) {
   this.direction = (this.direction - deg) % 360;
 }
 
 // Just a handy rename for rotate
-Turtle.prototype.right = function(deg) {
+Tortuga.prototype.right = function(deg) {
   this.rotate(deg);
 }
 
 // Rotate the turtle by the desired angle in deg, anti-clockwise
-Turtle.prototype.left = function(deg) {
+Tortuga.prototype.left = function(deg) {
   this.rotate(-1 * deg);
 }
