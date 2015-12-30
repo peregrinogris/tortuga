@@ -67,8 +67,18 @@ turtle.color('hsl(0, 100%, 50%)'); // Sets the pen to red using HSL
 Step the pen color through the rainbow and draw the current path. Divides the
 spectrum in `totalSteps` steps, and sets the color to the desired step with `step`.
 
-**Code:**
-```js
+<table>
+  <tr>
+    <th>
+    Code
+    </th>
+    <th>
+    Output
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <pre lang="javascript">
 var turtle = new Tortuga(),
     angle = 36,
     sides = 360 / angle;
@@ -78,11 +88,13 @@ for (var step = 0; step < sides; step++){
   turtle.right(angle);
 }
 turtle.drawPath();
-```
-
-**Output:**
-
-![Rainbow Hexagon](../img/rainbow.png)
+      </pre>
+    </td>
+    <td>
+      <img src="../img/rainbow.png" alt="Rainbow Hexagon">
+    </td>
+  </tr>
+</table>
 
 <a name="penUp" href="#penUp">#</a> *Tortuga*.**penUp**()
 
@@ -94,8 +106,18 @@ Lifts the pen, draws the current path. Any movement made after `penUp` and befor
 Gets the pen down. Any movements after calling `penDown` will be traced in the
 canvas. Below is an example of `penUp` and `penDown` combined:
 
-**Code:**
-```js
+<table>
+  <tr>
+    <th>
+    Code
+    </th>
+    <th>
+    Output
+    </th>
+  </tr>
+  <tr>
+    <td>
+      <pre lang="javascript">
 var turtle = new Tortuga(),
     angle = 36,
     sides = 360 / angle;
@@ -111,11 +133,13 @@ for (var step = 0; step < sides; step++){
   turtle.right(angle);
 }
 turtle.drawPath();
-```
-
-**Output:**
-
-![Only odd sides Hexagon](../img/pendown.png)
+      </pre>
+    </td>
+    <td>
+      <img src="../img/pendown.png" alt="Only odd sides Hexagon">
+    </td>
+  </tr>
+</table>
 
 <a name="clean" href="#clean">#</a> *Tortuga*.**clean**()
 
