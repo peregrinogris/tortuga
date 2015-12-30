@@ -1,3 +1,9 @@
+# Advanced Examples
+
+<table>
+  <tr>
+    <td>
+       <pre lang="javascript">
 // Create a figure using poly
 var turtle = new Tortuga('#tortuga-poly-figure', 250, 240);
 function poly(angle, size) {
@@ -13,9 +19,21 @@ for (var i = 0; i <= 30; i++) {
   turtle.right(100);
 }
 turtle.drawPath();
+      </pre>
+    </td>
+    <td>
+      <img src="../img/poly-figure.png" alt="Poly Figure">
+    </td>
+  </tr>
+</table>
 
+
+<table>
+  <tr>
+    <td>
+      <pre lang="javascript">
 // Dashed 5 pointed star
-turtle = new Tortuga('#tortuga-poly-dashed', 30, 160);
+turtle = new Tortuga('#tortuga-poly-dashed', 30, 160);     
 function dashedPoly(angle) {
   var totalTurning = 0;
   do {
@@ -33,9 +51,20 @@ function dashedPoly(angle) {
   } while (totalTurning > 0);
 }
 dashedPoly(144);
+      </pre>
+    </td>
+    <td>
+      <img src="../img/poly-dashed.png" alt="Poly Dashed">
+    </td>
+  </tr>
+</table>
 
+<table>
+  <tr>
+    <td>
+      <pre lang="javascript">
 // Create a figure using spiral
-turtle = new Tortuga('#tortuga-spiral', 240, 240);
+turtle = new Tortuga('#tortuga-spiral', 240, 240);         
 function polySpiral(angle, length) {
   for (var i = 0; i < 360 / angle; i++) {
     turtle.forward(length);
@@ -53,3 +82,10 @@ function spiral(angle, initialLength) {
   }
 }
 spiral(92, 30);
+      </pre>
+    </td>
+    <td>
+      <img src="../img/spiral.png" alt="Spiral">
+    </td>
+  </tr>
+</table>

@@ -35,7 +35,7 @@ The constructor takes a CSS selector to query the canvas element and an initial
 
 ## Documentation
 
-For a complete documentation, check the [docs](./docs/) section.
+For a complete documentation, check the [docs](./docs/README.md) section.
 
 If you like to learn by tinkering with some code, check out the [examples](./examples)
 folder.
@@ -50,3 +50,8 @@ do it.
 I did a brief search and couldn't find something simple enough and without any
 dependencies, almost all that I found were Logo implementations. Since it didn't
 seem overly complex, I decided to roll my own one and Tortuga was born.
+
+The picture on top is from:
+Schöpf, Johann David.
+[*Naturgeschichte der Schildkröten*](http://dx.doi.org/10.5962/bhl.title.58644).
+Erlangen: Johann Jakob Palm, 1792. Print.
