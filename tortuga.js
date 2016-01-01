@@ -1,3 +1,5 @@
+//     (c) 2015-2016 Hernán Rodríguez Colmeiro
+//     Tortuga may be freely distributed under the MIT license.
 /*
  * Create a Tortuga.
  *  canvasSelector: String, canvas element selector
