@@ -6,12 +6,12 @@ Create a new `Tortuga` object, parameters are:
 
  Parameter | Description
  ----------|------------
- *canvasSelector* | String, canvas element selector (optional, default: `#tortuga-canvas`)
+ *canvasSelector* | String, canvas element selector (optional, default: `#tortuga`)
  *initx*          | Int, initial X coordinate (optional, default: `0`)
  *inity*          | Int, initial Y coordinate (optional, default: `0`)
  *length*         | Int, default length in px used by forward (optional, default: `100`)
 
-The point of origin `(0, 0)` is the bottom left corner of the canvas element.
+The point of origin `(0, 0)` is the center of the canvas element.
 
 ### Tortuga Properties
 
@@ -22,7 +22,7 @@ Parameter | Description
 ----------|------------
 *ctx*       | The canvas context object
 *position*  | An int array `[x, y]` with the turtle's current position
-*direction* | An int with the turtle's direction, expressed in deg
+*direction* | An int with the turtle's direction, expressed in deg (0 <= *direction* < 360)
 *length*    | The default lenght the turtle moves with `forward`/`backward`
 
 

@@ -9,7 +9,7 @@
  */
 function Tortuga(canvasSelector, initx, inity, length){
   // Check if the selector matches
-  this.canvasSelector = canvasSelector || '#tortuga-canvas';
+  this.canvasSelector = canvasSelector || '#tortuga';
   try {
     this.ctx = document.querySelector(this.canvasSelector).getContext("2d");
   } catch(e) {
@@ -35,16 +35,19 @@ function Tortuga(canvasSelector, initx, inity, length){
   this.begin();
 }
 
-// Helper to invert the screen axis so the origin is at the bottom left
+// Helper to set the origin at the center and axis to increase towards top right
 Tortuga.prototype.fixAxis = function(){
-  this.ctx.translate(0, this.ctx.canvas.height);
+  this.ctx.translate(this.ctx.canvas.width / 2, this.ctx.canvas.height / 2);
   this.ctx.scale(1, -1);
 }
 
 // Clean the current turtle drawing
 Tortuga.prototype.clean = function(){
   // Paint it black!
-  this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+  var height = this.ctx.canvas.height,
+      width = this.ctx.canvas.width;
+  // Origin is at the center, so start painting from bottom left
+  this.ctx.fillRect(width * -1 / 2, height * -1 / 2, width, height);
 }
 
 // Usually shouldn't be used outside Tortuga, begins a new path

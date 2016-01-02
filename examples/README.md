@@ -5,7 +5,7 @@
     <td>
        <pre lang="javascript">
 // Create a figure using poly
-var turtle = new Tortuga('#tortuga-poly-figure', 250, 240);
+var turtle = new Tortuga('#tortuga-poly-figure');       
 function poly(angle, size) {
   for (var i = 0; i < 360; i += angle) {
     turtle.forward(size);
@@ -32,39 +32,8 @@ turtle.drawPath();
   <tr>
     <td>
       <pre lang="javascript">
-// Dashed 5 pointed star
-turtle = new Tortuga('#tortuga-poly-dashed', 30, 160);     
-function dashedPoly(angle) {
-  var totalTurning = 0;
-  do {
-    for (var i = 0; i <= 30; i++) {
-      turtle.rainbow(i, 30);
-      turtle.forward(10);
-      turtle.penUp();
-      turtle.right(90);
-      turtle.forward(10);
-      turtle.left(90);
-      turtle.penDown();
-    }
-    turtle.right(angle);
-    totalTurning = (totalTurning + angle) % 360;
-  } while (totalTurning > 0);
-}
-dashedPoly(144);
-      </pre>
-    </td>
-    <td>
-      <img src="../img/poly-dashed.png" alt="Poly Dashed">
-    </td>
-  </tr>
-</table>
-
-<table>
-  <tr>
-    <td>
-      <pre lang="javascript">
 // Create a figure using spiral
-turtle = new Tortuga('#tortuga-spiral', 240, 240);         
+turtle = new Tortuga('#tortuga-spiral');                
 function polySpiral(angle, length) {
   for (var i = 0; i < 360 / angle; i++) {
     turtle.forward(length);
@@ -86,6 +55,37 @@ spiral(92, 30);
     </td>
     <td>
       <img src="../img/spiral.png" alt="Spiral">
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td>
+      <pre lang="javascript">
+// Dashed 5 pointed star
+turtle = new Tortuga('#tortuga-poly-dashed', -215, -95);
+function dashedPoly(angle) {
+  var totalTurning = 0;
+  do {
+    for (var i = 0; i <= 30; i++) {
+      turtle.rainbow(i, 30);
+      turtle.forward(10);
+      turtle.penUp();
+      turtle.right(90);
+      turtle.forward(10);
+      turtle.left(90);
+      turtle.penDown();
+    }
+    turtle.right(angle);
+    totalTurning = (totalTurning + angle) % 360;
+  } while (totalTurning > 0);
+}
+dashedPoly(144);
+      </pre>
+    </td>
+    <td>
+      <img src="../img/poly-dashed.png" alt="Poly Dashed">
     </td>
   </tr>
 </table>

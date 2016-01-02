@@ -18,7 +18,7 @@ special easy-to-use syntax, though it's quite simple anyway:
 
 **Code:**
 ```js
-var turtle = new Tortuga('#tortuga-canvas', 30, 50);
+var turtle = new Tortuga();
 for (var i = 0; i < 5; i++) {
   turtle.forward();
   turtle.right(72);
@@ -29,9 +29,6 @@ turtle.drawPath();
 **Output:**
 
 ![Pentagon](img/pentagon.png)
-
-The constructor takes a CSS selector to query the canvas element and an initial
-`x` and `y` position for the turtle inside the canvas.
 
 ## Documentation
 
