@@ -9,9 +9,10 @@ Create a new `Tortuga` object, parameters are:
  *canvasSelector* | String, canvas element selector (optional, default: `#tortuga`)
  *initx*          | Int, initial X coordinate (optional, default: `0`)
  *inity*          | Int, initial Y coordinate (optional, default: `0`)
- *length*         | Int, default length in px used by forward (optional, default: `100`)
+ *length*         | Int, default length in pixels used by forward (optional, default: `100`)
 
-The point of origin `(0, 0)` is the center of the canvas element.
+The point of origin `(0, 0)` is at the center of the canvas element. The
+starting color is white on a black background.
 
 ### Tortuga Properties
 
@@ -20,20 +21,32 @@ case they are needed:
 
 Parameter | Description
 ----------|------------
-*ctx*       | The canvas context object
-*position*  | An int array `[x, y]` with the turtle's current position
-*direction* | An int with the turtle's direction, expressed in deg (0 <= *direction* < 360)
-*length*    | The default lenght the turtle moves with `forward`/`backward`
+*ctx*       | The canvas context object.
+*position*  | An int array `[x, y]` with the turtle's current position.
+*direction* | An int with the turtle's direction, expressed in deg (0 <= *direction* < 360). Measured clockwise from the Y axis.
+*length*    | The default lenght the turtle moves with `forward`/`backward`.
 
 
-### Basic commands
+### Motion commands
 <a name="forward" href="#forward">#</a> *Tortuga*.**forward**(*length*)
 
-Move forward the specified length, or use the default one.
+Move forward the specified length in pixels, or use the default one.
 
 <a name="back" href="#back">#</a> *Tortuga*.**back**(*length*)
 
-Move backward the specified length, or use the default one.
+Move backward the specified length in pixels, or use the default one.
+
+<a name="setXY" href="#setXY">#</a> *Tortuga*.**setXY**(*x*, *y*)
+
+Move the turtle to the specified absolute [*x*, *y*] position.
+
+<a name="setX" href="#setX">#</a> *Tortuga*.**setX**(*x*)
+
+Move the turtle horizontally to the new *x* coordinate.
+
+<a name="setY" href="#setY">#</a> *Tortuga*.**setY**(*y*)
+
+Move the turtle vertically to the new *y* coordinate.
 
 <a name="right" href="#right">#</a> *Tortuga*.**right**(*angle*)
 
@@ -42,6 +55,15 @@ Rotate the turtle by the desired angle in deg, clockwise.
 <a name="left" href="#left">#</a> *Tortuga*.**left**(*angle*)
 
 Rotate the turtle by the desired angle in deg, counterclockwise.
+
+<a name="setHeading" href="#setHeading">#</a> *Tortuga*.**setHeading**(*heading*)
+
+Set the turtle absolute heading to the specified angle in deg. *heading* should
+be an integer between 0 and 360.
+
+<a name="home" href="#home">#</a> *Tortuga*.**home**()
+
+Move the turtle to it's initial position at [0, 0] and heading 0.
 
 ### Pen Commands
 <a name="drawPath" href="#drawPath">#</a> *Tortuga*.**drawPath**()
