@@ -51,6 +51,13 @@ Tortuga.prototype.clean = function(){
   this.ctx.fillRect(width * -1 / 2, height * -1 / 2, width, height);
 }
 
+// Clear the current turtle drawing and reset turtle position
+Tortuga.prototype.reset = function(){
+  this.home();
+  this.clean();
+  this.begin();
+}
+
 // Usually shouldn't be used outside Tortuga, begins a new path
 Tortuga.prototype.begin = function(){
   this.ctx.beginPath();

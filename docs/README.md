@@ -166,3 +166,7 @@ turtle.drawPath();
 <a name="clean" href="#clean">#</a> *Tortuga*.**clean**()
 
 Clean the current turtle drawing.
+
+<a name="reset" href="#reset">#</a> *Tortuga*.**reset**()
+
+Clear the current turtle drawing and reset turtle position
