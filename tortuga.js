@@ -7,7 +7,7 @@
  *  inity:          Int, initial Y coordinate (optional, default 0)
  *  length:         Int, default length used by forward (optional, default 100)
  */
-function Tortuga(canvasSelector, initx, inity, length){
+function Tortuga(canvasSelector, initx, inity, length) {
   // Check if the selector matches
   this.canvasSelector = canvasSelector || '#tortuga';
   try {
@@ -36,14 +36,14 @@ function Tortuga(canvasSelector, initx, inity, length){
 }
 
 // Helper to set the origin at the center and axis to increase towards top right
-Tortuga.prototype.fixAxis = function(){
+Tortuga.prototype.fixAxis = function() {
   this.ctx.resetTransform();
   this.ctx.translate(this.ctx.canvas.width / 2, this.ctx.canvas.height / 2);
   this.ctx.scale(1, -1);
 }
 
 // Clean the current turtle drawing
-Tortuga.prototype.clean = function(){
+Tortuga.prototype.clean = function() {
   // Paint it black!
   var height = this.ctx.canvas.height,
       width = this.ctx.canvas.width;
@@ -52,14 +52,14 @@ Tortuga.prototype.clean = function(){
 }
 
 // Clear the current turtle drawing and reset turtle position
-Tortuga.prototype.reset = function(){
+Tortuga.prototype.reset = function() {
   this.home();
   this.clean();
   this.begin();
 }
 
 // Usually shouldn't be used outside Tortuga, begins a new path
-Tortuga.prototype.begin = function(){
+Tortuga.prototype.begin = function() {
   this.ctx.beginPath();
   this.ctx.moveTo(this.position[0], this.position[1]);
 }
@@ -72,7 +72,7 @@ Tortuga.prototype.drawPath = function(){
 
 // Change the pen color, draws the current path.
 // Accepts either a color string or rgb values.
-Tortuga.prototype.color = function(r, g, b){
+Tortuga.prototype.color = function(r, g, b) {
   if (arguments.length == 1) {
     // use this string as strokeStyle
     this.ctx.strokeStyle = r;
@@ -87,7 +87,7 @@ Tortuga.prototype.color = function(r, g, b){
 }
 
 // Step the pen color through the rainbow
-Tortuga.prototype.rainbow = function(step, totalSteps){
+Tortuga.prototype.rainbow = function(step, totalSteps) {
   this.color('hsl(' + Math.ceil(step / totalSteps * 360) + ', 100%, 50%)');
 }
 
