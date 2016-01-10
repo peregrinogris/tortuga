@@ -26,7 +26,6 @@ Parameter | Description
 *direction* | An int with the turtle's direction, expressed in deg (0 <= *direction* < 360). Measured clockwise from the Y axis.
 *length*    | The default lenght the turtle moves with `forward`/`backward`.
 
-
 ### Motion commands
 <a name="forward" href="#forward">#</a> *Tortuga*.**forward**(*length*)
 
@@ -162,6 +161,10 @@ turtle.drawPath();
     </td>
   </tr>
 </table>
+
+<a name="isPenDown" href="#isPenDown">#</a> *Tortuga*.**isPenDown**()
+
+Gets the pen status. True if the pen is down, false if it's up.
 
 <a name="clean" href="#clean">#</a> *Tortuga*.**clean**()
 

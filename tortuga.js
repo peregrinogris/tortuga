@@ -22,7 +22,7 @@ function Tortuga(canvasSelector, initx, inity, length){
 
   // Set internal variables
   this.direction = 0; // Direction is in degrees
-  this.isPenDown = true;
+  this._penDown = true;
 
   // Set stroke style to white and the fill style to black
   this.ctx.strokeStyle = '#fff';
@@ -92,14 +92,19 @@ Tortuga.prototype.rainbow = function(step, totalSteps){
 }
 
 // Lift the pen, draws the current path
-Tortuga.prototype.penUp = function(){
+Tortuga.prototype.penUp = function() {
   this.drawPath();
-  this.isPenDown = false;
+  this._penDown = false;
 }
 
 // Get the pen down
-Tortuga.prototype.penDown = function(){
-  this.isPenDown = true;
+Tortuga.prototype.penDown = function() {
+  this._penDown = true;
+}
+
+// Returns the pen status
+Tortuga.prototype.isPenDown = function() {
+  return this._penDown;
 }
 
 // Move the turtle to the specified absolute [`x`, `y`] position.
@@ -108,7 +113,7 @@ Tortuga.prototype.setXY = function(x, y) {
   this.position = [x, y];
 
   // If the pen is down, write. Otherwise just move.
-  if (this.isPenDown) {
+  if (this.isPenDown()) {
     this.ctx.lineTo(x, y);
   } else {
     this.ctx.moveTo(x, y);
