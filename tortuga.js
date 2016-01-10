@@ -24,9 +24,31 @@ function Tortuga(canvasSelector, initx, inity, length) {
   this.direction = 0; // Direction is in degrees
   this._penDown = true;
 
+  // Tortuga pre-set color palette. To store new colors or modify existing
+  // ones just modify this list.
+  this.palette =  [
+    [0, 0, 0], // black
+    [0, 0, 255], // blue
+    [0, 255, 0], // green
+    [0, 255, 255], // cyan
+    [255, 0, 0], // red
+    [255, 0, 255], // magenta
+    [255, 255, 0], // yellow
+    [255, 255, 255], // white
+    [155, 96, 59], // brown
+    [255, 149, 119], // tan
+    [34, 139, 34], // 10 forest
+    [127, 255, 212], // 11 aqua
+    [250, 128, 114], // 12 salmon
+    [128, 0, 128], // 13 purple
+    [255, 163, 0], // orange
+    [183, 183, 183], // grey
+  ]
+
   // Set stroke style to white and the fill style to black
-  this.ctx.strokeStyle = '#fff';
-  this.ctx.fillStyle = '#000';
+  this.penColor = 'rgb(' + this.palette[7].join(',') + ')';
+  this.ctx.strokeStyle = this.penColor;
+  this.ctx.fillStyle = 'rgb(' + this.palette[0].join(',') + ')';
 
   // Y axis on screen is rotated, so fix it
   this.fixAxis();
@@ -73,16 +95,22 @@ Tortuga.prototype.drawPath = function(){
 // Change the pen color, draws the current path.
 // Accepts either a color string or rgb values.
 Tortuga.prototype.color = function(r, g, b) {
-  if (arguments.length == 1) {
-    // use this string as strokeStyle
-    this.ctx.strokeStyle = r;
-  } else if (arguments.length == 3) {
+  if (arguments.length == 3) {
     // rgb was passed as arguments
-    this.ctx.strokeStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+    this.penColor = 'rgb(' + r + ',' + g + ',' + b + ')';
   } else {
-    // Set color to red, an argument is missing
-    this.ctx.strokeStyle = 'rgb(255, 0, 0)';
+    // Check if first parameter is string or int
+    if (isNaN(parseInt(r, 10))) {
+      // Use this string as strokeStyle
+      this.penColor = r;
+    } else {
+      // Palette color was sent.
+      // Only allow indexes available for this.palette.
+      var colorIndex = parseInt(r, 10) % this.palette.length;
+      this.penColor = 'rgb(' + this.palette[colorIndex].join(',') + ')';
+    }
   }
+  this.ctx.strokeStyle = this.penColor;
   this.drawPath();
 }
 

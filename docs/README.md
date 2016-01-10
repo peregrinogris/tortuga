@@ -25,6 +25,42 @@ Parameter | Description
 *position*  | An int array `[x, y]` with the turtle's current position.
 *direction* | An int with the turtle's direction, expressed in deg (0 <= *direction* < 360). Measured clockwise from the Y axis.
 *length*    | The default lenght the turtle moves with `forward`/`backward`.
+*penColor* | The current css color string the pen is using.
+*palette* | List of saved colors. See below.
+
+#### Palette
+
+A `Tortuga` object has a list of pre-set colors, that can be modified and
+extended at will. The current colors are:
+
+  1. black
+  2. blue
+  3. green
+  4. cyan
+  5. red
+  6. magenta
+  7. yellow
+  8. white
+  9. brown
+  10. tan
+  11. forest
+  12. aqua
+  13. salmon
+  14. purple
+  15. orange
+  16. grey
+
+The list is an array stored in the `palette` property of the `Tortuga` object,
+and each element is an integer array with the RGB components of the color. For
+example this would be a way to add a new color:
+
+```js
+var turtle = new Tortuga();
+turtle.palette.append([153, 51,153]); // Add another purple
+```
+
+***Beware:*** Don't mess up this array otherwise the `color` method may
+ misbehave!
 
 ### Motion commands
 <a name="forward" href="#forward">#</a> *Tortuga*.**forward**(*length*)
@@ -71,16 +107,19 @@ Draw the current turtle path, and begin a new one. Usually this function should
 be called at the end to draw the path traveled by the turtle. Changing the pen
 color triggers this function as it's a canvas requirement.
 
-<a name="color" href="#color">#</a> *Tortuga*.**color**(*r*, *g*, *b* | *colorString*)
+<a name="color" href="#color">#</a> *Tortuga*.**color**( *paletteIndex* | *r*, *g*, *b* | *colorString*)
 
-Change the pen color, draws the current path. Accepts either 3 int parameters for
-each of the RGB channels, or a single parameter with a CSS color string.
+Change the pen color, draws the current path. Accepts multiple parameters:
+  * 1 int with a `palette` color index
+  * 3 int parameters for each of the RGB channels
+  * 1 string parameter with a CSS color.
 
 ```js
 var turtle = new Tortuga();
-turtle.color(255, 0, 0); // Sets the pen to red
-turtle.color('rgb(255, 0, 0)'); // Also sets the pen to red
-turtle.color('hsl(0, 100%, 50%)'); // Sets the pen to red using HSL
+turtle.color(5); // Sets the pen to red
+turtle.color(255, 0, 0); // Also sets the pen to red
+turtle.color('rgb(255, 0, 0)'); // You know, this also sets the pen to red
+turtle.color('hsl(0, 100%, 50%)'); // This time set the pen to red using HSL
 ```
 
 <a name="rainbow" href="#rainbow">#</a> *Tortuga*.**rainbow**(*step*, *totalSteps*)
