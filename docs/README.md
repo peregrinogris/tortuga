@@ -96,6 +96,13 @@ Rotate the turtle by the desired angle in deg, counterclockwise.
 Set the turtle absolute heading to the specified angle in deg. *heading* should
 be an integer between 0 and 360.
 
+<a name="towards" href="#towards">#</a> *Tortuga*.**towards**(*x*, *y*)
+
+Return the heading needed for the turtle to point directly to the specified
+destination *(x, y)*.
+
+Returns a value in degrees, between 0 and 360.
+
 <a name="home" href="#home">#</a> *Tortuga*.**home**()
 
 Move the turtle to it's initial position at [0, 0] and heading 0.

@@ -212,3 +212,13 @@ Tortuga.prototype.left = function left(deg) {
 Tortuga.prototype.setHeading = function setHeading(heading) {
   this.direction = heading % 360;
 };
+
+// Return the direction for the turtle to point directly to the destination.
+Tortuga.prototype.towards = function towards(x, y) {
+  // Get the position vector (r) for this.position->(x,y)
+  var r = [x - this.position[0], y - this.position[1]];
+  // Get the position vector angle
+  var heading = Math.atan2(r[0], r[1]);
+  // Return heading in degrees
+  return heading * 180 / Math.PI;
+};
