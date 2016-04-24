@@ -52,6 +52,9 @@ function Tortuga(canvasSelector, initx, inity, length) {
   this.ctx.strokeStyle = this.penColor;
   this.ctx.fillStyle = 'rgb(' + this.palette[0].join(',') + ')';
 
+  // Set the pen width to the default 1
+  this.size(1);
+
   // Y axis on screen is rotated, so fix it
   this.fixAxis();
 
@@ -121,6 +124,12 @@ Tortuga.prototype.color = function color(r, g, b) {
 // Step the pen color through the rainbow.
 Tortuga.prototype.rainbow = function rainbow(step, totalSteps) {
   this.color('hsl(' + Math.ceil(step / totalSteps * 360) + ', 100%, 50%)');
+};
+
+// Set the pen size.
+Tortuga.prototype.size = function size(_size) {
+  this.penSize = parseFloat(_size, 10);
+  this.ctx.lineWidth = this.penSize;
 };
 
 // Lift the pen, draws the current path.

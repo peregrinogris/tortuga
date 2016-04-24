@@ -12,7 +12,7 @@ Create a new `Tortuga` object, parameters are:
  *length*         | Int, default length in pixels used by forward (optional, default: `100`)
 
 The point of origin `(0, 0)` is at the center of the canvas element. The
-starting color is white on a black background.
+starting color is white on a black background, with a width of 1.
 
 ### Tortuga Properties
 
@@ -26,6 +26,7 @@ Parameter | Description
 *direction* | An int with the turtle's direction, expressed in deg (0 <= *direction* < 360). Measured clockwise from the Y axis.
 *length*    | The default lenght the turtle moves with `forward`/`backward`.
 *penColor* | The current css color string the pen is using.
+*penSize* | The current pen width.
 *palette* | List of saved colors. See below.
 
 #### Palette
@@ -162,6 +163,10 @@ turtle.drawPath();
     </td>
   </tr>
 </table>
+
+<a name="size" href="#size">#</a> *Tortuga*.**size**(*size*)
+
+Sets the pen size to the specified float `size`.
 
 <a name="penUp" href="#penUp">#</a> *Tortuga*.**penUp**()
 
