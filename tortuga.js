@@ -19,7 +19,7 @@ function Tortuga(canvasSelector, initx, inity, length) {
   }
 
   // Parse optional parameters
-  this.position = [initx || 0, inity || 0];
+  this.position = [parseInt(initx, 10) || 0, parseInt(inity, 10) || 0];
   this.length = length || 100;
 
   // Set internal variables
@@ -122,7 +122,9 @@ Tortuga.prototype.color = function color(r, g, b) {
 };
 
 // Step the pen color through the rainbow.
-Tortuga.prototype.rainbow = function rainbow(step, totalSteps) {
+Tortuga.prototype.rainbow = function rainbow(_step, _totalSteps) {
+  var step = parseInt(_step, 10);
+  var totalSteps = parseInt(_totalSteps, 10);
   this.color('hsl(' + Math.ceil(step / totalSteps * 360) + ', 100%, 50%)');
 };
 
@@ -151,24 +153,24 @@ Tortuga.prototype.isPenDown = function isPenDown() {
 // Move the turtle to the specified absolute [`x`, `y`] position.
 Tortuga.prototype.setXY = function setXY(x, y) {
   // Update position
-  this.position = [x, y];
+  this.position = [parseInt(x, 10), parseInt(y, 10)];
 
   // If the pen is down, write. Otherwise just move
   if (this.isPenDown()) {
-    this.ctx.lineTo(x, y);
+    this.ctx.lineTo(this.position[0], this.position[1]);
   } else {
-    this.ctx.moveTo(x, y);
+    this.ctx.moveTo(this.position[0], this.position[1]);
   }
 };
 
 // Move the turtle horizontally to the new `x` coordinate.
 Tortuga.prototype.setX = function setX(x) {
-  this.setXY(x, this.position[1]);
+  this.setXY(parseInt(x, 10), this.position[1]);
 };
 
 // Move the turtle vertically to the new `y` coordinate.
 Tortuga.prototype.setY = function setY(y) {
-  this.setXY(this.position[0], y);
+  this.setXY(this.position[0], parseInt(y, 10));
 };
 
 // Move the turtle to it's initial position at [0, 0] and heading 0.
@@ -182,7 +184,7 @@ Tortuga.prototype.forward = function forward(length) {
   // `this.direction` is measured clockwise from the Y axis,
   // but the canvas measures angles counterclockwise from the X axis,
   // so we have to convert it first to something canvas understands.
-  var _length = length === undefined ? this.length : length;
+  var _length = length === undefined ? this.length : parseInt(length, 10);
   var x = this.position[0];
   var y = this.position[1];
   var angle = -1 * this.direction + 90;
@@ -202,30 +204,33 @@ Tortuga.prototype.back = function back(length) {
   // Change the direction momentarily
   this.direction -= 180;
   // Use forward to avoid repeating code
-  this.forward(length);
+  this.forward(parseInt(length, 10));
   // Restore the direction as it was before
   this.direction += 180;
 };
 
 // Rotate the turtle by the desired angle in deg, clockwise.
 Tortuga.prototype.right = function right(deg) {
-  this.direction = (this.direction + deg) % 360;
+  this.direction = (this.direction + parseInt(deg, 10)) % 360;
 };
 
 // Rotate the turtle by the desired angle in deg, counterclockwise.
 Tortuga.prototype.left = function left(deg) {
-  this.right(-1 * deg);
+  this.right(-1 * parseInt(deg, 10));
 };
 
 // Set the turtle absolute heading to the specified angle in deg.
 Tortuga.prototype.setHeading = function setHeading(heading) {
-  this.direction = heading % 360;
+  this.direction = parseInt(heading, 10) % 360;
 };
 
 // Return the direction for the turtle to point directly to the destination.
 Tortuga.prototype.towards = function towards(x, y) {
   // Get the position vector (r) for this.position->(x,y)
-  var r = [x - this.position[0], y - this.position[1]];
+  var r = [
+    parseInt(x, 10) - this.position[0],
+    parseInt(y, 10) - this.position[1]
+  ];
   // Get the position vector angle
   var heading = Math.atan2(r[0], r[1]);
   // Return heading in degrees
