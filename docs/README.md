@@ -26,7 +26,7 @@ Parameter | Description
 *direction* | An int with the turtle's direction, expressed in deg (0 <= *direction* < 360). Measured clockwise from the Y axis.
 *length*    | The default lenght the turtle moves with `forward`/`backward`.
 *penColor* | The current css color string the pen is using.
-*penSize* | The current pen width.
+*penSize* | The current pen size.
 *palette* | List of saved colors. See below.
 
 #### Palette
