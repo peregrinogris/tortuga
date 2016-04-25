@@ -1,5 +1,5 @@
-//     (c) 2015-2016 Hernán Rodríguez Colmeiro
-//     Tortuga may be freely distributed under the MIT license.
+// (c) 2015-2016 Hernán Rodríguez Colmeiro
+// Tortuga may be freely distributed under the MIT license.
 /*
  * Create a Tortuga.
  *  canvasSelector: String, canvas element selector
@@ -39,18 +39,21 @@ function Tortuga(canvasSelector, initx, inity, length) {
     [255, 255, 255], // white
     [155, 96, 59], // brown
     [255, 149, 119], // tan
-    [34, 139, 34], // 10 forest
-    [127, 255, 212], // 11 aqua
-    [250, 128, 114], // 12 salmon
-    [128, 0, 128], // 13 purple
+    [34, 139, 34], // forest
+    [127, 255, 212], // aqua
+    [250, 128, 114], // salmon
+    [128, 0, 128], // purple
     [255, 163, 0], // orange
     [183, 183, 183] // grey
   ];
 
-  // Set stroke style to white and the fill style to black.
-  this.penColor = 'rgb(' + this.palette[7].join(',') + ')';
-  this.ctx.strokeStyle = this.penColor;
-  this.ctx.fillStyle = 'rgb(' + this.palette[0].join(',') + ')';
+  // Set the background to black
+  this.backgroundColor = '';
+  this.background(0);
+
+  // Set stroke style to white using the palette.
+  this.penColor = '';
+  this.color(7);
 
   // Set the pen width to the default 1
   this.size(1);
@@ -72,11 +75,10 @@ Tortuga.prototype.fixAxis = function fixAxis() {
 
 // Clean the current turtle drawing.
 Tortuga.prototype.clean = function clean() {
-  // Paint it black!
   var height = this.ctx.canvas.height;
   var width = this.ctx.canvas.width;
   // Origin is at the center, so start painting from bottom left.
-  this.ctx.fillRect(width * -1 / 2, height * -1 / 2, width, height);
+  this.ctx.clearRect(width * -1 / 2, height * -1 / 2, width, height);
 };
 
 // Clear the current turtle drawing and reset turtle position.
@@ -98,25 +100,48 @@ Tortuga.prototype.drawPath = function drawPath() {
   this.begin();
 };
 
-// Change the pen color, draws the current path.
-// Accepts either a color string or rgb values.
-Tortuga.prototype.color = function color(r, g, b) {
-  var colorIndex = 0;
-  if (arguments.length === 3) {
-    // rgb was passed as arguments
-    this.penColor = 'rgb(' + r + ',' + g + ',' + b + ')';
-  } else {
-    // Check if first parameter is string or int
-    if (isNaN(parseInt(r, 10))) {
-      // Use this string as strokeStyle
-      this.penColor = r;
-    } else {
-      // Palette color was sent
-      // Only allow indexes available for this.palette
-      colorIndex = parseInt(r, 10) % this.palette.length;
-      this.penColor = 'rgb(' + this.palette[colorIndex].join(',') + ')';
-    }
+// Helper to get a color string out of multiple possible arguments. Should only
+// be called from Tortuga. Accepts either rgb values, a color string or
+// palette index.
+Tortuga.prototype.getColorString = function getColorString(r, g, b) {
+  var colorIndex = 7;
+
+  // If r is undefined, no argument is found, use white.
+  if (r === undefined) {
+    return 'rgb(' + this.palette[colorIndex].join(',') + ')';
   }
+
+  // If all colors are defined, return an rgb color string
+  if (r !== undefined && g !== undefined && b !== undefined) {
+    // rgb was passed as arguments
+    return 'rgb(' + r + ',' + g + ',' + b + ')';
+  }
+
+  // Check if first parameter is string or int
+  if (isNaN(parseInt(r, 10))) {
+    // Use this string as strokeStyle
+    return r;
+  }
+
+  // Palette color was sent
+  // Only allow indexes available for this.palette
+  colorIndex = parseInt(r, 10) % this.palette.length;
+  return 'rgb(' + this.palette[colorIndex].join(',') + ')';
+};
+
+// Change the background color.
+// Accepts either rgb values, a color string or palette index.
+Tortuga.prototype.background = function background(r, g, b) {
+  var canvas = document.querySelector(this.canvasSelector);
+  this.backgroundColor = this.getColorString(r, g, b);
+  canvas.style.backgroundColor = this.backgroundColor;
+};
+
+
+// Change the pen color, draws the current path.
+// Accepts either rgb values, a color string or palette index.
+Tortuga.prototype.color = function color(r, g, b) {
+  this.penColor = this.getColorString(r, g, b);
   this.ctx.strokeStyle = this.penColor;
   this.drawPath();
 };

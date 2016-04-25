@@ -12,7 +12,7 @@ Create a new `Tortuga` object, parameters are:
  *length*         | Int, default length in pixels used by forward (optional, default: `100`)
 
 The point of origin `(0, 0)` is at the center of the canvas element. The
-starting color is white on a black background, with a width of 1.
+starting color is white on a black background, with a pen size of 1.
 
 ### Tortuga Properties
 
@@ -25,31 +25,36 @@ Parameter | Description
 *position*  | An int array `[x, y]` with the turtle's current position.
 *direction* | An int with the turtle's direction, expressed in deg (0 <= *direction* < 360). Measured clockwise from the Y axis.
 *length*    | The default lenght the turtle moves with `forward`/`backward`.
+*backgroundColor* | The css color string for the background.
 *penColor* | The current css color string the pen is using.
 *penSize* | The current pen size.
-*palette* | List of saved colors. See below.
+*palette* | List of predefined colors. See below.
 
 #### Palette
 
-A `Tortuga` object has a list of pre-set colors, that can be modified and
+A `Tortuga` object has a list of predefined colors, that can be modified and
 extended at will. The current colors are:
 
-  1. black
-  2. blue
-  3. green
-  4. cyan
-  5. red
-  6. magenta
-  7. yellow
-  8. white
-  9. brown
-  10. tan
-  11. forest
-  12. aqua
-  13. salmon
-  14. purple
-  15. orange
-  16. grey
+<img src="../img/colors.png" alt="Available Colors">
+
+Index | Color
+------|------
+0 | Black
+1 | Blue
+2 | Green
+3 | Cyan
+4 | Red
+5 | Magenta
+6 | Yellow
+7 | White
+8 | Brown
+9 | Tan
+10 | Forest
+11 | Aqua
+12 | Salmon
+13 | Purple
+14 | Orange
+15 | Grey
 
 The list is an array stored in the `palette` property of the `Tortuga` object,
 and each element is an integer array with the RGB components of the color. For
@@ -129,6 +134,11 @@ turtle.color(255, 0, 0); // Also sets the pen to red
 turtle.color('rgb(255, 0, 0)'); // You know, this also sets the pen to red
 turtle.color('hsl(0, 100%, 50%)'); // This time set the pen to red using HSL
 ```
+
+<a name="background" href="#background">#</a> *Tortuga*.**background**( *paletteIndex* | *r*, *g*, *b* | *colorString*)
+
+Set the background to the specified color. Accepts the same inputs as
+`color`.
 
 <a name="rainbow" href="#rainbow">#</a> *Tortuga*.**rainbow**(*step*, *totalSteps*)
 
