@@ -34,7 +34,7 @@ turtle.drawPath();
 
 For a complete documentation, check the [docs](./docs/README.md) section.
 
-If you like to learn by tinkering with some code, check out the [examples](./examples)
+If you like to learn by tinkering with some code, check out the [examples](./examples/README.md)
 folder.
 
 ## History
