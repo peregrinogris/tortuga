@@ -47,6 +47,8 @@ function Tortuga(canvasSelector, initx, inity, length) {
     [183, 183, 183] // grey
   ];
 
+  this.ctx.lineCap = 'round';
+
   // Set the background to black
   this.backgroundColor = '';
   this.background(0);
