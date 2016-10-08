@@ -220,8 +220,8 @@ Tortuga.prototype.forward = function forward(length) {
   angle = Math.PI * (angle) / 180;
 
   // And finally add the displacement
-  x += Math.cos(angle) * _length;
-  y += Math.sin(angle) * _length;
+  x += Math.round(Math.cos(angle) * _length);
+  y += Math.round(Math.sin(angle) * _length);
 
   this.setXY(x, y);
 };
