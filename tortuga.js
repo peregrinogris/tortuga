@@ -20,7 +20,7 @@ function Tortuga(canvasSelector, initx, inity, length) {
 
   // Parse optional parameters
   this.position = [parseInt(initx, 10) || 0, parseInt(inity, 10) || 0];
-  this.length = length || 100;
+  this.length = parseInt(length, 10) || 100;
 
   // Set internal variables
   this.direction = 0; // Direction is in degrees
