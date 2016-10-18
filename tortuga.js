@@ -70,7 +70,7 @@ function Tortuga(canvasSelector, initx, inity, length) {
 // Helper to set the origin at the center and axis
 // to increase towards top right.
 Tortuga.prototype.fixAxis = function fixAxis() {
-  this.ctx.resetTransform();
+  this.ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset Transform to Identity Matrix
   this.ctx.translate(this.ctx.canvas.width / 2, this.ctx.canvas.height / 2);
   this.ctx.scale(1, -1);
 };
