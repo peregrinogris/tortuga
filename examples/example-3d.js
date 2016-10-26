@@ -26,6 +26,27 @@ var rowOfTrees = {
   axiom: '-(90)F(1)'
 };
 
+var hilbertCube = {
+  productions: {
+    A: function Module() {
+      return 'B-F+CFC+F-D&F^D-F+&&CFC+F+B//';
+    },
+    B: function Module() {
+      return 'A&F^CFB^F^D^-F-D^|F^B|FC^F^A//';
+    },
+    C: function Module() {
+      return '|D^|F^B-F+C^F^A&&FA&F^C+F+B^F^D//';
+    },
+    D: function Module() {
+      return '|CFB-F+B|FA&F^A&&FB-F+B|FC//';
+    },
+    X: function Module() {
+      return '&/XF&/XFX-F&\\\\XFX^F+\\\\XFX-F\\X-\\';
+    }
+  },
+  axiom: 'X'
+};
+
 var program = '';
 var iterations = 8;
 var i = 0;
@@ -34,12 +55,12 @@ var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 var renderer = new THREE.WebGLRenderer();
 
-function createScene() {
+function createScene(lengthIni, defaultAngleIni) {
   var light = null;
   var stack = [];
-  var length = 2;
-  var defaultAngle = 85;
-  var direction = new THREE.Vector3(0, 1, 0);
+  var length = lengthIni || 2;
+  var defaultAngle = defaultAngleIni || 85;
+  var direction = new THREE.Vector3(1/Math.pow(3, 0.5), 1/Math.pow(3, 0.5), 1/Math.pow(3, 0.5));
   var position = new THREE.Vector3(0, 0, 0);
 
   camera.position.z = 150;
@@ -75,28 +96,66 @@ function createScene() {
     Module: function Module(node, params) {
       var movement = length;
       var arrow = null;
-      if (params.length) {
-        movement = length * params[0];
-      }
-      arrow = new THREE.ArrowHelper(direction, position, movement, 0xb756a4);
-      scene.add(arrow);
+      if (node.name === 'F') {
+        if (params.length) {
+          movement = length * params[0];
+        }
+        arrow = new THREE.ArrowHelper(direction, position, movement, 0xb756a4);
+        scene.add(arrow);
 
-      // Update position
-      position.addScaledVector(direction, movement);
+        // Update position
+        position.addScaledVector(direction, movement);
+      }
     },
     Rotation: function Rotation(node, params) {
       var angle = (Math.PI * (params.length ? params[0] : defaultAngle)) / 180;
       var newDirection = new THREE.Vector3(0, 0, 0);
-      if (node.name === '+') {
-        newDirection.x = (direction.x * Math.cos(angle)) - (direction.y * Math.sin(angle));
-        newDirection.y = (direction.x * Math.sin(angle)) + (direction.y * Math.cos(angle));
-        newDirection.z = direction.z;
-      }
-      if (node.name === '-') {
-        angle *= -1;
-        newDirection.x = (direction.x * Math.cos(angle)) - (direction.y * Math.sin(angle));
-        newDirection.y = (direction.x * Math.sin(angle)) + (direction.y * Math.cos(angle));
-        newDirection.z = direction.z;
+      switch (node.name) {
+        case '-':
+          angle *= -1; // eslint-disable-next-line no-fallthrough
+        case '+':
+          /* Ru(a)
+          |  cos a  sin a   0  |
+          | -sin a  cos a   0  |
+          |   0       0     1  |
+          */
+          newDirection.x = (direction.x * Math.cos(angle)) - (direction.y * Math.sin(angle));
+          newDirection.y = (direction.x * Math.sin(angle)) + (direction.y * Math.cos(angle));
+          newDirection.z = direction.z;
+          break;
+        case '|':
+          angle = -1 * Math.PI;
+          newDirection.x = (direction.x * Math.cos(angle)) - (direction.y * Math.sin(angle));
+          newDirection.y = (direction.x * Math.sin(angle)) + (direction.y * Math.cos(angle));
+          newDirection.z = direction.z;
+          break;
+        case '\\':
+          angle *= -1; // eslint-disable-next-line no-fallthrough
+        case '/':
+          /* Rl(a)
+          |  cos a    0  -sin a|
+          |    0      1     0  |
+          |  sin a    0   cos a|
+          */
+          newDirection.x = (direction.x * Math.cos(angle)) + (direction.z * Math.sin(angle));
+          newDirection.y = direction.y;
+          newDirection.z = (-1 * direction.x * Math.sin(angle)) + (direction.z * Math.cos(angle));
+          break;
+        case '^':
+          angle *= -1; // eslint-disable-next-line no-fallthrough
+        case '&':
+          /* Rh(a)
+          |    1      0     0  |
+          |    0   cos a -sin a|
+          |    0   sin a  cos a|
+          */
+          newDirection.x = direction.x;
+          newDirection.y = (direction.y * Math.cos(angle)) + (direction.z * Math.sin(angle));
+          newDirection.z = (-1 * direction.y * Math.sin(angle)) + (direction.z * Math.cos(angle));
+          break;
+        default:
+          // Do Nothing
+          break;
       }
       direction = newDirection;
     }
@@ -110,10 +169,17 @@ function render() {
 }
 
 // Create Program
-iterations = 4;
+iterations = 3;
 for (i = 0; i <= iterations; i += 1) {
   // program = iterate((new Parser(program)).parse(), singleTree);
-  program = iterate((new Parser(program)).parse(), rowOfTrees);
+  program = iterate((new Parser(program)).parse(), hilbertCube);
 }
-createScene();
+// program = program.slice(0, 20);
+// program = 'A&F^CFB^F^D^-F-D^|FF';
+// program = hilbertCube.productions.B();
+// program = 'F+F+F+F &F&F&F / F/F/F |F -F-F |F \\F';
+// program = 'F+F+F+F &F&F&F \\ F\\F\\F |F -F-F |F /F';
+program += 'F';
+console.log(program);
+createScene(null, 90);
 render();
