@@ -1,4 +1,5 @@
 # Documentation
+## API
 ### Constructor
 <a name="tortuga" href="#tortuga">#</a> *Tortuga*(*canvasSelector*, *initx*, *inity*, *length*)
 
@@ -35,7 +36,7 @@ Parameter | Description
 A `Tortuga` object has a list of predefined colors, that can be modified and
 extended at will. The current colors are:
 
-<img src="../img/colors.png" alt="Available Colors">
+<img src="img/colors.png" alt="Available Colors">
 
 Index | Color
 ------|------
@@ -169,7 +170,7 @@ turtle.drawPath();
       </pre>
     </td>
     <td>
-      <img src="../img/rainbow.png" alt="Rainbow Hexagon">
+      <img src="img/rainbow.png" alt="Rainbow Hexagon">
     </td>
   </tr>
 </table>
@@ -218,7 +219,7 @@ turtle.drawPath();
       </pre>
     </td>
     <td>
-      <img src="../img/pendown.png" alt="Only odd sides Hexagon">
+      <img src="img/pendown.png" alt="Only odd sides Hexagon">
     </td>
   </tr>
 </table>
@@ -234,3 +235,7 @@ Clean the current turtle drawing.
 <a name="reset" href="#reset">#</a> *Tortuga*.**reset**()
 
 Clear the current turtle drawing and reset turtle position
+
+## Examples
+
+You can see some code samples in the [examples section](Examples.md).

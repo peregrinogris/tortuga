@@ -1,14 +1,14 @@
 # Tortuga
 
-![Tortuga](img/tortuga.png)
+![Tortuga](docs/img/tortuga.png)
 
 Tortuga is a minimal [turtle graphics](https://en.wikipedia.org/wiki/Turtle_graphics)
 implementation in JavaScript and Canvas, intended to be used in modern browsers.
 
 ## Installation
 
-To install it just include `tortuga.js` and start using it. It has no external
-dependencies.
+To install it just include [`tortuga.js`](https://github.com/peregrinogris/tortuga/blob/master/lib/tortuga.js)
+and start using it. It has no external dependencies.
 
 ## Usage
 
@@ -16,26 +16,35 @@ Turtle Graphics and Logo are usually associated though they are different things
 This turtle graphics lib is not quite intended to be used by kids as it has no
 special easy-to-use syntax, though it's quite simple anyway:
 
-**Code:**
-```js
-var turtle = new Tortuga();
-for (var i = 0; i < 5; i++) {
-  turtle.forward();
-  turtle.right(72);
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Output</th>
+  </tr>
+  <tr>
+    <td>
+       <pre lang="javascript">
+let turtle = new Tortuga('#canvas');
+for (let i = 0; i < 5; i++) {
+ turtle.forward();
+ turtle.right(72);
 }
 turtle.drawPath();
-```
+      </pre>
+    </td>
+    <td>
+      <img src="docs/img/pentagon.png" alt="Pentagon">
+    </td>
+  </tr>
+</table>
 
-**Output:**
-
-![Pentagon](img/pentagon.png)
 
 ## Documentation
 
-For a complete documentation, check the [docs](./docs/README.md) section.
+For a complete documentation, check the [docs](docs/README.md) section.
 
-If you like to learn by tinkering with some code, check out the [examples](./examples/README.md)
-folder.
+If you like to learn by tinkering with some code, check out the
+[examples](docs/Examples.md) folder.
 
 ## History
 

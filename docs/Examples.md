@@ -1,3 +1,17 @@
+# Examples
+
+## Live Examples
+
+You can check out a live version of these examples by visiting the
+project page [http://peregrinogris.github.io/tortuga](http://peregrinogris.github.io/tortuga),
+where you'll also find some advanced examples involving L-systems rendering.
+
+## Code Samples
+
+<table>
+  <tr>
+    <td>
+       <pre lang="javascript">
 // Create a figure using poly
 var turtle = new Tortuga('#tortuga-poly-figure');
 function poly(angle, size) {
@@ -13,7 +27,19 @@ for (var i = 0; i <= 30; i++) {
   turtle.right(100);
 }
 turtle.drawPath();
+      </pre>
+    </td>
+    <td>
+      <img src="./img/poly-figure.png" alt="Poly Figure">
+    </td>
+  </tr>
+</table>
 
+
+<table>
+  <tr>
+    <td>
+      <pre lang="javascript">
 // Create a figure using spiral
 turtle = new Tortuga('#tortuga-spiral');
 function polySpiral(angle, length) {
@@ -33,7 +59,18 @@ function spiral(angle, initialLength) {
   }
 }
 spiral(92, 30);
+      </pre>
+    </td>
+    <td>
+      <img src="./img/spiral.png" alt="Spiral">
+    </td>
+  </tr>
+</table>
 
+<table>
+  <tr>
+    <td>
+      <pre lang="javascript">
 // Dashed 5 pointed star
 turtle = new Tortuga('#tortuga-poly-dashed', -215, -95);
 function dashedPoly(angle) {
@@ -53,3 +90,10 @@ function dashedPoly(angle) {
   } while (totalTurning > 0);
 }
 dashedPoly(144);
+      </pre>
+    </td>
+    <td>
+      <img src="./img/poly-dashed.png" alt="Poly Dashed">
+    </td>
+  </tr>
+</table>
