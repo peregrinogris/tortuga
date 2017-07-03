@@ -1,0 +1,10 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "max-len": ["warn", 120, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": false
+    }],
+    "no-param-reassign": ["error", { "props": false }],
+  }
+}

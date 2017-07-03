@@ -1,0 +1,42 @@
+{
+  "name": "tortuga-js",
+  "version": "1.0.1",
+  "description": "Tortuga is a minimal turtle graphics implementation in JavaScript and Canvas, intended to be used in modern browsers.",
+  "main": "lib/Tortuga.js",
+  "module": "src/index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel": "6.23.0",
+    "babel-core": "6.25.0",
+    "babel-eslint": "7.2.3",
+    "babel-loader": "7.1.1",
+    "babel-plugin-add-module-exports": "0.2.1",
+    "babel-preset-es2015": "6.24.1",
+    "eslint": "2.7.0",
+    "eslint-config-airbnb": "6.2.0",
+    "eslint-loader": "1.8.0",
+    "webpack": "2.0.0"
+  },
+  "scripts": {
+    "build": "WEBPACK_ENV=build webpack",
+    "dev": "WEBPACK_ENV=dev webpack --progress --colors --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peregrinogris/tortuga.git"
+  },
+  "keywords": [
+    "canvas",
+    "turtle graphics"
+  ],
+  "author": "Hernán Rodríguez Colmeiro <me@peregrinogris.com.ar> (http://peregrinogris.com.ar)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peregrinogris/tortuga/issues"
+  },
+  "homepage": "https://github.com/peregrinogris/tortuga#readme"
+}

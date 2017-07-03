@@ -7,7 +7,7 @@ implementation in JavaScript and Canvas, intended to be used in modern browsers.
 
 ## Installation
 
-To install it just include [`tortuga.js`](https://github.com/peregrinogris/tortuga/blob/master/lib/tortuga.js)
+To install it just include [`Tortuga.min.js`](https://github.com/peregrinogris/tortuga/blob/master/lib/Tortuga.min.js)
 and start using it. It has no external dependencies.
 
 ## Usage
