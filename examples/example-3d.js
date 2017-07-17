@@ -62,7 +62,7 @@ var hilbertCube = {
       return '|CFB-F+B|FA&F^A&&FB-F+B|FC//';
     },
     X: function Module() {
-      return '&/XF&/XFX-F&\\\\XFX^F+\\\\XFX-F\\X-\\';
+      return '^<XF^<XFX-F^>>XFX&F+>>XFX-F>X->';
     }
   },
   axiom: 'X'
@@ -162,14 +162,14 @@ function createScene(lengthIni, defaultAngleIni) {
         case '+':
           rotationQuaternion.setFromAxisAngle(new THREE.Vector3(0, 0, 1), angle);
           break;
-        case '\\':
+        case '>':
           angle *= -1; // eslint-disable-next-line no-fallthrough
-        case '/':
+        case '<':
           rotationQuaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), angle);
           break;
-        case '^':
-          angle *= -1; // eslint-disable-next-line no-fallthrough
         case '&':
+          angle *= -1; // eslint-disable-next-line no-fallthrough
+        case '^':
           rotationQuaternion.setFromAxisAngle(new THREE.Vector3(1, 0, 0), angle);
           break;
         default:
@@ -188,10 +188,11 @@ function render() {
 }
 
 // Create Program
-iterations = 3;
+iterations = 7;
 for (i = 0; i <= iterations; i += 1) {
   // program = iterate((new Parser(program)).parse(), singleTree);
-  program = iterate((new Parser(program)).parse(), hilbertCube);
+   program = iterate((new Parser(program)).parse(), rowOfTrees);
+  // program = iterate((new Parser(program)).parse(), hilbertCube);
   // program = iterate((new Parser(program)).parse(), hilbert);
   // program = iterate((new Parser(program)).parse(), koch3D);
   // program = iterate((new Parser(program)).parse(), tree3D);

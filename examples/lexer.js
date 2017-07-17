@@ -65,8 +65,8 @@ Lexer.prototype.token = function token() {
       value: c
     };
   }
-  // Rotation kewords are: + - & ^ \ / |
-  if (c.match(/[\+\-&\^\\\/\|]/)) {
+  // Rotation kewords are: + - & ^ < > |
+  if (c.match(/[\+\-&\^<>\|]/)) {
     this.pos += 1;
     return {
       pos: this.pos - 1,
