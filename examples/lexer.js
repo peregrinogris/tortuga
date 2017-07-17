@@ -42,7 +42,7 @@ Lexer.prototype.token = function token() {
   }
 
   // Negative numbers are numbers too!
-  if (Lexer._isDigit(c) || (c === '-' && Lexer._isDigit(this.buf[this.pos + 1]))) {
+  if (Lexer._isDigit(c) || (c === '-' && this.pos < this.buflen - 1 && Lexer._isDigit(this.buf[this.pos + 1]))) {
     return {
       pos: this.pos,
       type: 'NUMBER',

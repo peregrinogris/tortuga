@@ -10,6 +10,27 @@ var singleTree = {
   axiom: 'A(1)'
 };
 
+var tree3D = {
+  productions: {
+    F: function Module() {
+      return 'FF[-FF][+FF][/FF][\\FF]';
+    }
+  },
+  axiom: 'F'
+};
+
+var hilbert = {
+  productions: {
+    A: function Module() {
+      return '-BF+AFA+FB-';
+    },
+    B: function Module() {
+      return '+AF-BFB-FA+';
+    }
+  },
+  axiom: 'A'
+};
+
 var rotC = 3;
 var rotP = 0.9;
 var rotQ = rotC - rotP;
@@ -47,6 +68,27 @@ var hilbertCube = {
   axiom: 'X'
 };
 
+var koch3D = {
+  productions: {
+    A: function Module() {
+      return '[[[[F+F-F-F+F]G/G\\G\\G/G]H-H+H+H-H]I\\I/I/I\\I]';
+    },
+    F: function Module() {
+      return 'F+F-F-F+F';
+    },
+    G: function Module() {
+      return 'G/G\\G\\G/G';
+    },
+    H: function Module() {
+      return 'H-H+H+H-H';
+    },
+    I: function Module() {
+      return 'I\\I/I/I\\I';
+    }
+  },
+  axiom: 'A'
+};
+
 var program = '';
 var iterations = 8;
 var i = 0;
@@ -60,22 +102,23 @@ function createScene(lengthIni, defaultAngleIni) {
   var stack = [];
   var length = lengthIni || 2;
   var defaultAngle = defaultAngleIni || 85;
-  var direction = new THREE.Vector3(1/Math.pow(3, 0.5), 1/Math.pow(3, 0.5), 1/Math.pow(3, 0.5));
+  var direction = new THREE.Vector3(0, 1, 0);
   var position = new THREE.Vector3(0, 0, 0);
+  var rotationQuaternion = new THREE.Quaternion();
 
   camera.position.z = 150;
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
   // Lights
-  light = new THREE.DirectionalLight(0xffffff);
-  light.position.set(1, 1, 1);
-  scene.add(light);
-  light = new THREE.DirectionalLight(0xffffff);
-  light.position.set(-1, -1, -1);
-  scene.add(light);
-  light = new THREE.AmbientLight(0xffffff);
-  scene.add(light);
+  // light = new THREE.DirectionalLight(0xffffff);
+  // light.position.set(1, 1, 1);
+  // scene.add(light);
+  // light = new THREE.DirectionalLight(0xffffff);
+  // light.position.set(-1, -1, -1);
+  // scene.add(light);
+  // light = new THREE.AmbientLight(0xffffff);
+  // scene.add(light);
 
   scene.add(buildAxes(1000));
 
@@ -109,55 +152,31 @@ function createScene(lengthIni, defaultAngleIni) {
     },
     Rotation: function Rotation(node, params) {
       var angle = (Math.PI * (params.length ? params[0] : defaultAngle)) / 180;
-      var newDirection = new THREE.Vector3(0, 0, 0);
       switch (node.name) {
+        case '|':
+          angle = -1 * Math.PI;
+          rotationQuaternion.setFromAxisAngle(new THREE.Vector3(0, 0, 1), angle);
+          break;
         case '-':
           angle *= -1; // eslint-disable-next-line no-fallthrough
         case '+':
-          /* Ru(a)
-          |  cos a  sin a   0  |
-          | -sin a  cos a   0  |
-          |   0       0     1  |
-          */
-          newDirection.x = (direction.x * Math.cos(angle)) - (direction.y * Math.sin(angle));
-          newDirection.y = (direction.x * Math.sin(angle)) + (direction.y * Math.cos(angle));
-          newDirection.z = direction.z;
-          break;
-        case '|':
-          angle = -1 * Math.PI;
-          newDirection.x = (direction.x * Math.cos(angle)) - (direction.y * Math.sin(angle));
-          newDirection.y = (direction.x * Math.sin(angle)) + (direction.y * Math.cos(angle));
-          newDirection.z = direction.z;
+          rotationQuaternion.setFromAxisAngle(new THREE.Vector3(0, 0, 1), angle);
           break;
         case '\\':
           angle *= -1; // eslint-disable-next-line no-fallthrough
         case '/':
-          /* Rl(a)
-          |  cos a    0  -sin a|
-          |    0      1     0  |
-          |  sin a    0   cos a|
-          */
-          newDirection.x = (direction.x * Math.cos(angle)) + (direction.z * Math.sin(angle));
-          newDirection.y = direction.y;
-          newDirection.z = (-1 * direction.x * Math.sin(angle)) + (direction.z * Math.cos(angle));
+          rotationQuaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), angle);
           break;
         case '^':
           angle *= -1; // eslint-disable-next-line no-fallthrough
         case '&':
-          /* Rh(a)
-          |    1      0     0  |
-          |    0   cos a -sin a|
-          |    0   sin a  cos a|
-          */
-          newDirection.x = direction.x;
-          newDirection.y = (direction.y * Math.cos(angle)) + (direction.z * Math.sin(angle));
-          newDirection.z = (-1 * direction.y * Math.sin(angle)) + (direction.z * Math.cos(angle));
+          rotationQuaternion.setFromAxisAngle(new THREE.Vector3(1, 0, 0), angle);
           break;
         default:
           // Do Nothing
           break;
       }
-      direction = newDirection;
+      direction.applyQuaternion(rotationQuaternion);
     }
   });
 }
@@ -173,13 +192,26 @@ iterations = 3;
 for (i = 0; i <= iterations; i += 1) {
   // program = iterate((new Parser(program)).parse(), singleTree);
   program = iterate((new Parser(program)).parse(), hilbertCube);
+  // program = iterate((new Parser(program)).parse(), hilbert);
+  // program = iterate((new Parser(program)).parse(), koch3D);
+  // program = iterate((new Parser(program)).parse(), tree3D);
 }
 // program = program.slice(0, 20);
 // program = 'A&F^CFB^F^D^-F-D^|FF';
 // program = hilbertCube.productions.B();
 // program = 'F+F+F+F &F&F&F / F/F/F |F -F-F |F \\F';
 // program = 'F+F+F+F &F&F&F \\ F\\F\\F |F -F-F |F /F';
-program += 'F';
+// program += 'F';
+// program = 'F+F+F+F \\ F';
 console.log(program);
 createScene(null, 90);
 render();
+
+/*
++ 90
+\ 90
+& 90
+- -90
+/ -90
+^ -90
+*/
